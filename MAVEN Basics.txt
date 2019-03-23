@@ -1,0 +1,109 @@
+Maven is used for managing 
+builds 
+dependencies and thier versions
+	
+There are other products out there to build java projects.
+Gradle usually used in Android projects. Its supports JSON configuration. 
+JAVAC to compile source code in compiled files
+ANT is another option which is XML based just like Maven. Its flexible and extensible unlike Maven.
+
+Build artefact is nothing but a jar file or a war file
+
+Common structure in Maven dependency includes:-
+
+groupID - it is the UID(Unique Id or name) of the company or organization/group who owns the project(jar file or java project)
+artifactID - This will be saved as the name of artefact or jar file after maven build.
+version - at the start of the project or our own java project the version is "0.0.1-SNAPSHOT"  
+			  meaning that its in progress. That is why we should not use snapsot versions 
+			  because what we are seeing in the code today might not be available tomorrow
+			  Sometimes the version may include the word RELEASE along with the version number.
+			  This symbolizes that the verion is  tested, final and will not have any ore changes.
+			  Eg. <version>2.1.3.RELEASE</version>
+			  
+			  
+Now if we open pom.xml.
+
+<xml> We have xml tag showing xm encoding we are using which is standard mostly
+<modelVersion> - its Maven object model. usually 4.0.0. STANDARD
+<project>. our project with our groupId, artifact, version and packaging tag.
+<packaging>jar</packaging> THis shows that the build generated in end will be jar file i.e java archive.Other options .war, .ear
+<name> and <description> is for documentation
+
+<parent>
+Sometimes the pom.xml file gets very large. In that case we inherit dependencies of another pom file/another project
+We can override in our pom if we want to change something from thee parent pom.xml
+Before build and effective POM is produces which have parent pom as well
+
+
+<plugin>
+If we want something we use to extend the normal build process of MAVEN.
+Eg. 		
+<plugin>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-maven-plugin</artifactId>
+</plugin>
+
+The above plugin usually comes with spring project and helps with spring plugin
+
+
+MAVEN build lifecycle.
+The steps taken in the process of building a build and distributing it.
+Few of common MAVEN commands are:-
+VALIDATE
+COMPILE
+TEST
+PACKAGE
+INTEGERATION-TEST
+VERIFY
+INSTALL
+DEPLOY
+
+The maven commands follows heirarchy.
+
+COMPILE will VALIDATE first and then COMPILE
+TEST command will COMPILE first and then run TEST command.
+INSTALL command will VALIDATE CCOMPILE TEST PACKAGE VERIFY and then finally INSTALL it.
+So it wise to do install altogether as well.
+Similary DEPLOY will execute INSTALL and its dependencies
+
+ 
+ validate:- to validate if everything is working fine
+ package to package it in jar.
+ verify checks qulaity criteria
+ install command installs package into local repository
+ deploy done in integeration or release environment(copies the package to remote repository for sharing)
+ 
+ CLEAN its not a basic command as such but it clears the target directory with build data before starting the new building process.
+ Eg: mvn clean install
+ 
+ mvn -X clean install
+ This command runs MAVEN in debug mode to pinpoint the error.
+ So all the logs are printed on the screen
+ 
+ To save the logs generated onthe screen use:-
+  mvn -X clean install >> sample.txt
+  
+  if MAVEN is taking lots of time we can skip a stage in heirarchy.
+  Eg:- maven clean build -Dskiptest
+  
+In case we do not have java option in the maven project we created or opened.
+we can do that by 
+Right click the project> Properties >Java Build Path > check JRE and Maven dependencies
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
