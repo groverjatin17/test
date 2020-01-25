@@ -1,0 +1,58 @@
+In some cases we want to write constant data or information to be used. The hardcode information.
+So rather than writing constants somewhere and then writing functions separately. We can write objects as a grouping entity to keep both inside.
+For example:
+
+```
+const employeeData = {
+  name: 'Krish',
+  getUserName = function (user){
+    return user.firstName + ' ' + user.lastName;
+    }
+   }
+```
+
+
+In ES6 Instead of writing anonymosus function. we can directly write below as well.
+
+const employeeData = {
+  name: 'Krish',
+  getUserName(user){
+    return user.firstName + ' ' + user.lastName;
+    }
+   }
+   
+=========================================================
+
+//Below we can see that we can access the variable's value inside an object.
+//In case of JSX we can use curly braces etc. but in case of accessing outside value in an object was not possible.
+//Now we can
+const key = 'name';
+const useObject = {
+  [key] : 'Robin'
+};
+
+==========================================================
+
+Another thing that is new to me is that we can write a function inside another function.
+So whenever I want to break up the logic I write another function outsidea  function and call it to do stuff. 
+I don't need to necessarily do that. Now I can.
+
+```
+onDismiss(id){
+  function isNoId(item) {
+  return item.objectID !== id;
+  }
+  const updatedList = this.state.list.filter(isNotId);    //we dont have to pass item. It automatically gets an item
+  }
+  
+  //A pro would write it as
+  onDismiss(id){
+  const isNotId = item => itemId !== id;
+  const updateList = this.state.list.filter(isNotId);
+  }
+  
+  //Or pros pro would do it like
+  const updateList = this.state.list.filter(item => item.objectId !== id);
+
+
+
