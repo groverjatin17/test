@@ -1,0 +1,94 @@
+Resource: Flavio's NextJS Handbook.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NextJS supports server side rendering. The reason for its inception are
+	1. Client-side rendering is slow comparatively. As whole JS bundle is loaded before the page is rendered
+	2. SEO, plain single page application are not enough for public domains. NextJS helps us in this.
+
+Apart from this, NextJs supports 
+	• Automatic routing as we have pages folder with files related to each page. 
+	• Automatic code splitting, meaning only JS/modules related to that page is loaded and no other tons of pages.
+
+
+What is the difference between client-side and server-side rendering?
+Server rendering means that page is rendered in server itself and our browser receives HTML. Because of that the browser does not need to instantiate React to render locally. And the super main benefit that the Google Search engine will index the pages as it does not have to run client side JavaScript. Don't ask why, it's just how it is.
+
+Now, it's important to note that if we check the View Page Source for Next.js app. It will display HTML app with small JS bundle.
+The interactions like clicking etc. are done with client-side rendering. So it's not purely SSR.
+But reloading a page will reload it from a server.
+
+When is Next.js better than Gatsby?
+
+The end result using Gatsby is a static site generator, without a server. You build the site, and then you deploy the result of the build process statically on Netlify or another static hosting site. Which means that pages are static in nature and only view as they are supposed to.
+Next.js provides a backend that can server side render a response to request, allowing you to create a dynamic website, which means you
+will deploy it on a platform that can run Node.js. Next.js can create dynamic content.
+
+Other than that Gatsby relies heavily on GraphQL. Has its own ecosystem of plugins.
+
+
+How to install Next.js?
+
+>npx create-next-app
+
+We can use the alternative version of create-react-app for next.js apps. This will automatically create a boilerplate with next, react and react-dom as dependencies. And pages folder instead of src folder for all the front-end code.
+
+NOTE: we can also get a sample code by using,
+>npx create-next-app --example blog-starter
+
+To create it manually, refer to Flavio's Next.js handbook.
+
+After we spin up the Next.js server, and check View Page Source. After putting it in HTML formatter. We can see that there are 4 .js bundle files in <link /> tag. These have a attribute called preloaded because they are supposed to load before the client starts interaction.
+
+In a fresh create-next-app we have below 4 .js in <head /> tag.
+ <link rel="preload" href="/_next/static/chunks/main.js?ts=1597899852262" as="script" />
+ <link rel="preload" href="/_next/static/chunks/webpack.js?ts=1597899852262" as="script" />
+ <link rel="preload" href="/_next/static/chunks/pages/_app.js?ts=1597899852262" as="script" />
+ <link rel="preload" href="/_next/static/chunks/pages/index.js?ts=1597899852262" as="script" />
+
+
+These files already provide us the code-splitting feature. Meaning index.js provides <index /> component that serves the '/' route.
+So, if some other route is accessed. We will get the bundle only for that route related component.
+
+A bit about React Devtools.
+
+Devtools provide Components and Profiler tabs in Chrome Inspect feature.
+The Components tab tells the stack tree of React Components that are rendered. Its important to note that there are 3 icons on top of the right side stack tree panel. 
+	• The eye opens the HTML code for that component.
+	• The bug icon console logs the data of that component. Then we can right click over the console.log() value and select "store as global variable". What this option does is its saves the value in a temporary variable called "temp1". Then we can access the globally saved variable in console as >temp1.pathname etc.
+	• <> icon opens the Source tab. In next.js app we can directly see the source here. 
+
+The Profiler tab helps us in recording an interaction between 2 components or more. More info yet to be provided.
+
+Another cool debugging feature is debugger keyword. In our code we can write debugger at the code statement we want to test. And the chrome will pause rendering at the exact spot. We can then check the execution 1 code statement at a time.
+
+Routing in Next.js
+
+All the main routes flow through pages folder.
+If we have a blog.js, then that component will render on http://localhost:3000/blog
+If we want it to have a sub route like http://localhost:3000/hey/ho then we need to have pages/hey/ho
+
+Traditionally, when we want to go to a new page in HTML. We use anchor tag. But in next we will use Link tag available.
+
+import Link from 'next/Link'
+
+Function() =>{
+
+Return(
+<Link href='/blog'>Go to Blog page</Link>
+
+Dynamic routes
+The above use case is fine but what about the dynamic URLswhere we want blog/how-to-dance or another dynamic route blog/my-second-blog. The dynamic URLs might render dynamic content as content is different as returned by different APIs etc.
+
+We can do this is NextJS by saving the file name like this:
+pages/blog/[id].js
+This file inherently will handle all the routes after /blog/. That value will be saved in id field and available to us via ID parameter of query property of the router.(router here is next/router package). We can access it via router.query.id. In real world scenario we can use this id to fetch data from the database or API.
+
+
+<Link href='/blog/[id]' as={'/blog/' + <The dynamic id will come here>}>
+
+
+
+
+
+
