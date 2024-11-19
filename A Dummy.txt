@@ -1,0 +1,15 @@
+      <html>
+        <head>
+          <title>PDF Document</title>
+          <style>
+            @page {
+              margin: 0; /* Removes default margins */
+            }
+            body {
+              margin: 1cm; /* Custom margin */
+              font-family: Arial, sans-serif;
+            }
+          </style>
+        </head>
+        ${myHTML}
+      </html>
