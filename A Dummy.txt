@@ -1,15 +1,25 @@
-      <html>
-        <head>
-          <title>PDF Document</title>
-          <style>
-            @page {
-              margin: 0; /* Removes default margins */
-            }
-            body {
-              margin: 1cm; /* Custom margin */
-              font-family: Arial, sans-serif;
-            }
-          </style>
-        </head>
-        ${myHTML}
-      </html>
+const formatDate = (dateString, locale) => {
+    const months = {
+        fr: [
+            "janvier", "février", "mars", "avril", "mai", "juin", 
+            "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+        ],
+        en: [
+            "January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+        ]
+    };
+
+    const [day, monthStr, year] = dateString.split(" ");
+    const monthIndex = new Date(`${monthStr} 1, 2000`).getMonth(); // Get month index
+
+    if (locale === "fr") {
+        return `${day} ${months.fr[monthIndex]} ${year}`;
+    } else {
+        return `${months.en[monthIndex]} ${day}, ${year}`;
+    }
+};
+
+// Example Usage
+console.log(formatDate("28 Feb 2025", "en")); // February 28, 2025
+console.log(formatDate("28 Feb 2025", "fr")); // 28 février 2025
